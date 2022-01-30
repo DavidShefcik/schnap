@@ -26,11 +26,11 @@ services:
   api:
     container_name: "schnap-api"
     image: node:16
-    command: yarn workspace api start:dev
+    command: yarn start:dev
     ports:
       - "127.0.0.1:1337:1337"
     volumes:
-      - .:/srv/api:rw
+      - ./api:/srv/api:rw
     working_dir: /srv/api
     env_file:
       - ./api/.env
@@ -43,17 +43,18 @@ services:
 
   frontend:
     container_name: "schnap-frontend"
-    image: node:16
-    command: yarn workspace frontend dev
-    ports:
-      - "127.0.0.1:3000:3000"
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     volumes:
-      - .:/srv/frontend:rw
-    working_dir: /srv/frontend
+      - ./frontend:/srv/frontend
+    ports:
+      - "3000:3000"
     env_file:
       - ./frontend/.env
     depends_on:
       - api
+      - reverse-proxy
     labels:
       - "traefik.http.routers.frontend.rule=Host(`schnap.localhost`)"
 

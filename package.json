@@ -6,11 +6,6 @@
   "repository": "git@github.com:DavidShefcik/schnap.git",
   "author": "DavidShefcik <davidshefcik@gmail.com>",
   "license": "MIT",
-  "workspaces": [
-    "frontend",
-    "api",
-    "app"
-  ],
   "devDependencies": {
     "@commitlint/cli": "^16.1.0",
     "@commitlint/config-conventional": "^16.0.0",
